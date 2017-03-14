@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MailLib", "MailLib\MailLib.vcxproj", "{976EC9FC-B738-4DB4-B8B5-B8B2F5DD9417}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLLTester", "DLLTester\DLLTester.vcxproj", "{957C498F-F2CE-4CC7-B09F-D89E15B549DE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{976EC9FC-B738-4DB4-B8B5-B8B2F5DD9417} =
+{976EC9FC-B738-4DB4-B8B5-B8B2F5DD9417}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{976EC9FC-B738-4DB4-B8B5-B8B2F5DD9417}.Debug|Win32.ActiveCfg = Debug|Win32
+		{976EC9FC-B738-4DB4-B8B5-B8B2F5DD9417}.Debug|Win32.Build.0 = Debug|Win32
+		{976EC9FC-B738-4DB4-B8B5-B8B2F5DD9417}.Release|Win32.ActiveCfg = Release|Win32
+		{976EC9FC-B738-4DB4-B8B5-B8B2F5DD9417}.Release|Win32.Build.0 = Release|Win32
+		{957C498F-F2CE-4CC7-B09F-D89E15B549DE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{957C498F-F2CE-4CC7-B09F-D89E15B549DE}.Debug|Win32.Build.0 = Debug|Win32
+		{957C498F-F2CE-4CC7-B09F-D89E15B549DE}.Release|Win32.ActiveCfg = Release|Win32
+		{957C498F-F2CE-4CC7-B09F-D89E15B549DE}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -213,15 +213,6 @@ CSmtp::CSmtp()
 	delete[] hostname;
 	hostname = NULL;
 
-	if ((RecvBuf = new char[BUFFER_SIZE]) == NULL)
-		throw ECSmtp(ECSmtp::LACK_OF_MEMORY);
-
-	if ((SendBuf = new char[BUFFER_SIZE]) == NULL)
-		throw ECSmtp(ECSmtp::LACK_OF_MEMORY);
-
-	if ((szMsgId = new char[BUFFER_MSGID_SIZE]) == NULL)
-		throw ECSmtp(ECSmtp::LACK_OF_MEMORY);
-
 	m_type = NO_SECURITY;
 	m_ctx = NULL;
 	m_ssl = NULL;
@@ -237,6 +228,22 @@ CSmtp::CSmtp()
 	hFile = NULL;
 
 	dwNumChar = 0;
+
+	// Allocate Memory
+	if ((FileBuf = new char[55]) == NULL)
+		throw ECSmtp(ECSmtp::LACK_OF_MEMORY);
+
+	if ((FileName = new char[MAX_PATH]) == NULL)
+		throw ECSmtp(ECSmtp::LACK_OF_MEMORY);
+
+	if ((RecvBuf = new char[BUFFER_SIZE]) == NULL)
+		throw ECSmtp(ECSmtp::LACK_OF_MEMORY);
+
+	if ((SendBuf = new char[BUFFER_SIZE]) == NULL)
+		throw ECSmtp(ECSmtp::LACK_OF_MEMORY);
+
+	if ((szMsgId = new char[BUFFER_MSGID_SIZE]) == NULL)
+		throw ECSmtp(ECSmtp::LACK_OF_MEMORY);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -554,13 +561,6 @@ void CSmtp::Send()
 
 	try
 	{
-		// Allocate Memory
-		if ((FileBuf = new char[55]) == NULL)
-			throw ECSmtp(ECSmtp::LACK_OF_MEMORY);
-
-		if ((FileName = new char[MAX_PATH]) == NULL)
-			throw ECSmtp(ECSmtp::LACK_OF_MEMORY);
-
 		//Check that any attachments specified can be opened
 		TotalSize = 0;
 

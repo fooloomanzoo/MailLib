@@ -145,8 +145,7 @@ MAIL_DLL_EXPORT BOOL SmtpSendMail(MailType *m)
 		mail.SetXMailer(m->szMailerName);
 
 		// Empfaenger
-		for (i = 0; i < MailLibVectorCount(&m->RecipVec);
-			i++)
+		for (i = 0; i < MailLibVectorCount(&m->RecipVec); i++)
 		{ /* Fuege Empfaenger hinzu */
 			mail.AddRecipient((char *)MailLibVectorGet(&m->RecipVec, i));
 		}
@@ -173,30 +172,33 @@ MAIL_DLL_EXPORT BOOL SmtpSendMail(MailType *m)
 			{
 				mail.m_bHTML = true;
 				mail.MsgBodyHTML = m->szContent;
-			} else
+			} 
+			else
 			{
 				mail.AddMsgLine(m->szContent);
 			}
 		}
 
 		// Anhaenge
-		for (i = 0; i < MailLibVectorCount(&m->AttachVec);
-			i++)
+		for (i = 0; i < MailLibVectorCount(&m->AttachVec); i++)
 		{ /* Fuege Anhaenge hinzu */
 			mail.AddAttachment((char *)MailLibVectorGet(&m->AttachVec, i));
 		}
 
 		// Senden der Email
 		mail.Send();
-	} catch (ECSmtp e)
+	} 
+	catch (ECSmtp e)
 	{
-		std::cout << "MailDLL: Error: " << e.GetErrorText().c_str() << ".\n";
+		std::cout << "MailDLL: Error: " << e.GetErrorText() << ".\n";
 		NoErrorHasOccurred = FALSE;
-	} catch (const std::exception &e)
+	} 
+	catch (const std::exception &e)
 	{
 		std::cout << "MailDLL: Error: " << e.what();
 		NoErrorHasOccurred = FALSE;
-	} catch (...)
+	} 
+	catch (...)
 	{
 		std::cout << "MailDLL: Undefined Error\n";
 		NoErrorHasOccurred = FALSE;
