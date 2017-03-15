@@ -59,36 +59,32 @@ char szDirInfo[512]; // String um die Versionsinfo der DLL zu halten
 //#define SENDE_EINFACHE_HTML_EMAIL
 //#define SENDE_TEXT_EMAIL
 
-#define SMPTSERVER   TEXT("mailrelay.fz-juelich.de")
+#define SMPTSERVER   TEXT("smtp.gmail.com")
 #define SMPTPORT     587
 #define SMPTSECURITY USE_TLS
 #define MAILERNAME   TEXT("MailLibDll-Tester")
 #define PRIORITY     XPRIORITY_NORMAL
 
-#define SENDER     TEXT("j.brautzsch@fz-juelich.de")
-#define SENDERNAME TEXT("Johannes Brautzsch")
-#define USER       TEXT("j.brautzsch")
-#define PASS       TEXT("xxx")
+#define SENDER     TEXT("xxx@gmail.com")
+#define SENDERNAME TEXT("John Doe")
+#define USER       TEXT("xxxxxx")
+#define PASS       TEXT("xxxxxx")
 
 #define CONTENT            TEXT("Das ist eine Test-Email!")
 #define CONTENT_FILE       TEXT("..\\SampleContent\\Test-HTML-Inhalt.html")
 #define CONTENT_TEMPL_FILE TEXT("..\\SampleContent\\Test-HTML-Template.html")
 
-#define T_SUBTITLE     TEXT("Dies ist ein Vorschautext")
-#define T_LIST_TITLE   TEXT("Es stehen zur Zeit folgende Alarme an:")
-#define T_LIST         TEXT("Alarm1;Alarm2")
-#define T_DETAIL_TITLE TEXT("Letzte Meldungen:")
-#define T_DETAIL       TEXT("Raum 200;Anlage 1;12.12.2017;07:15:12;Messtisch 3|\
-                             Raum 302;Anlage 3;14.12.2017;12:22:35;Messtisch 27")
-#define T_SIGNATURE    TEXT("Johannes Brautzsch;\
-  						     02.4V 0.15;\
-                             Tel: 2906;\
-                             j.brautzsch@fz-juelich.de")
+#define T_SUBTITLE     TEXT("This is a preview text")
+#define T_LIST_TITLE   TEXT("This are the given list entries:")
+#define T_LIST         TEXT("Entry 1; Entry 2")
+#define T_DETAIL_TITLE TEXT("This are the given table entries:")
+#define T_DETAIL       TEXT("Row 1 Cell 1;Row 1 Cell 2;Row 1 Cell 3|\
+                             Row 2 Cell 1;Row 2 Cell 2;Row 2 Cell 3")
+#define T_SIGNATURE    TEXT("Your Name;Your Street;Your T;Your Email")
 
 #define ATTACHMENT_PATH TEXT("..\\SampleContent\\Test-Anhang.csv")
 #define SUBJECT         TEXT("Test Email")
-#define RECIPIENTS      TEXT("j.brautzsch@fz-juelich.de;\
-                              johannes.brautzsch@gmail.com")
+#define RECIPIENTS      TEXT("abc@example.com;xyz@example.com")
 
 int _tmain(int argc, _TCHAR *argv[])
 {
