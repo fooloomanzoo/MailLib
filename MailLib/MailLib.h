@@ -70,7 +70,7 @@ typedef struct MAIL_TYPE {
   TCHAR *szReplyAddress;  /* Adresse fuer Rueckantworten  */
   TCHAR *szSubject;       /* Betreff der Email */
   TCHAR *szContent;       /* Text-Inhalt der Email */
-  BOOL bHTML;             /* Text-Inhalt ist im HTML-Format */
+  BOOL  bHTML;            /* Text-Inhalt ist im HTML-Format */
 
   CVECTOR RecipVec;    /* Vektor von Strings mit Empfaengeraddressen */
   CVECTOR CcRecipVec;  /* Vektor von Strings mit (oeffentlichen) KopienEmpfaengeraddressen */

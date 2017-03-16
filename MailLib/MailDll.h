@@ -8,7 +8,7 @@
   #define MAIL_DLL_EXPORT __declspec(dllimport)
 #endif
 
-// C-Array Groeßen
+// String-Größen
 #ifndef RETURNSIZE
   #define RETURNSIZE 255
 #endif
@@ -33,8 +33,8 @@ MAIL_DLL_EXPORT int VerInfo(char *szInfo);
 
 // ------------------------ direktes Setzen und Senden --------------------- //
 MAIL_DLL_EXPORT int MailLibInit(char *szSmtpServer,
-                                int szSmtpPort,
-                                int szSmtpSecurityType,
+                                int  szSmtpPort,
+                                int  szSmtpSecurityType,
                                 char *szSenderAddress,
                                 char *szSenderName,
                                 char *szMailerName);
@@ -66,14 +66,13 @@ MAIL_DLL_EXPORT int MailLibSendMailByHTMLTemplateFile(char *szRecip,
 
 // --------------------- indirektes Setzten und Senden --------------------- //
 MAIL_DLL_EXPORT BOOL SmtpSendMail(MailType *m);
-MAIL_DLL_EXPORT char *
-PopulateTemplateByContent(char *szTemplateFilePath,
-                          char *szSubtitle,
-                          char *szListTitle,
-                          char *szList,
-                          char *szDetailTitle,
-                          char *szDetailTable,
-                          char *szSignaturList);
+MAIL_DLL_EXPORT char *PopulateTemplateByContent(char *szTemplateFilePath,
+												char *szSubtitle,
+												char *szListTitle,
+												char *szList,
+												char *szDetailTitle,
+												char *szDetailTable,
+												char *szSignaturList);
 
 // --------------------------- Hilfsfunktionen ----------------------------- //
 MAIL_DLL_EXPORT void StringToVector(CVECTOR *pVec,
@@ -89,7 +88,7 @@ MAIL_DLL_EXPORT int MailLibCopyFile(char *szSrcFile,
                                     char *szDestFile);
 
 MAIL_DLL_EXPORT void MailLibVectorInit(CVECTOR *v);
-MAIL_DLL_EXPORT int MailLibVectorCount(CVECTOR *v);
+MAIL_DLL_EXPORT int  MailLibVectorCount(CVECTOR *v);
 MAIL_DLL_EXPORT void MailLibVectorAdd(CVECTOR *v, void *e);
 MAIL_DLL_EXPORT void MailLibVectorSet(CVECTOR *v, int i, void *e);
 MAIL_DLL_EXPORT void *MailLibVectorGet(CVECTOR *v, int i);
@@ -101,9 +100,9 @@ void ReplaceInString(std::string &subject,
                const std::string &search,
                const std::string &replace);
 std::string VectorToHTML(CVECTOR *Vec,
-                         const std::string &szStartTag,
-                         const std::string &szEndTag);
-char *CopyAndResize(char *dest, const char *orig);
+               const std::string &szStartTag,
+               const std::string &szEndTag);
+char *CopyAndResize(char *& dest, const char *orig);
 bool FileExists(const char *szFilePath);
 
 #ifdef __cplusplus

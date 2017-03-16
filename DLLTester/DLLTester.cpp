@@ -59,32 +59,32 @@ char szDirInfo[512]; // String um die Versionsinfo der DLL zu halten
 //#define SENDE_EINFACHE_HTML_EMAIL
 //#define SENDE_TEXT_EMAIL
 
-#define SMPTSERVER   TEXT("smtp.gmail.com")
+#define SMPTSERVER   TEXT("mailrelay.fz-juelich.de")
 #define SMPTPORT     587
 #define SMPTSECURITY USE_TLS
 #define MAILERNAME   TEXT("MailLibDll-Tester")
 #define PRIORITY     XPRIORITY_NORMAL
 
-#define SENDER     TEXT("xxx@gmail.com")
-#define SENDERNAME TEXT("John Doe")
-#define USER       TEXT("xxxxxx")
-#define PASS       TEXT("xxxxxx")
+#define SENDER     TEXT("j.brautzsch@fz-juelich.de")
+#define SENDERNAME TEXT("Johannes Brautzsch")
+#define USER       TEXT("j.brautzsch")
+#define PASS       TEXT("(jab123)")
 
-#define CONTENT            TEXT("Das ist eine Test-Email!")
+#define CONTENT            TEXT("This is a Test-Email!")
 #define CONTENT_FILE       TEXT("..\\SampleContent\\Test-HTML-Inhalt.html")
 #define CONTENT_TEMPL_FILE TEXT("..\\SampleContent\\Test-HTML-Template.html")
 
-#define T_SUBTITLE     TEXT("This is a preview text")
-#define T_LIST_TITLE   TEXT("This are the given list entries:")
-#define T_LIST         TEXT("Entry 1; Entry 2")
-#define T_DETAIL_TITLE TEXT("This are the given table entries:")
-#define T_DETAIL       TEXT("Row 1 Cell 1;Row 1 Cell 2;Row 1 Cell 3|\
-                             Row 2 Cell 1;Row 2 Cell 2;Row 2 Cell 3")
-#define T_SIGNATURE    TEXT("Your Name;Your Street;Your T;Your Email")
+#define T_SUBTITLE     TEXT("Das is ein beliebiger Vorschau-Text")
+#define T_LIST_TITLE   TEXT("Hier stehen die Listeneinträge:")
+#define T_LIST         TEXT("Eintrag 1; Eintrag 2")
+#define T_DETAIL_TITLE TEXT("Hier befindet sich die Tabelle mit den Details:")
+#define T_DETAIL       TEXT("Zeile 1 Spalte 1;Zeile 1 Spalte 2;Zeile 1 Spalte 3|\
+                             Zeile 2 Spalte 1;Zeile 2 Spalte 2;Zeile 2 Spalte 3;Zeile 2 Spalte 4")
+#define T_SIGNATURE    TEXT("Your Name;Your Street;Your Tel;Your Email")
 
 #define ATTACHMENT_PATH TEXT("..\\SampleContent\\Test-Anhang.csv")
 #define SUBJECT         TEXT("Test Email")
-#define RECIPIENTS      TEXT("abc@example.com;xyz@example.com")
+#define RECIPIENTS      TEXT("j.brautzsch@fz-juelich.de;johannes.brautzsch@gmail.com")
 
 int _tmain(int argc, _TCHAR *argv[])
 {
@@ -195,6 +195,7 @@ int _tmain(int argc, _TCHAR *argv[])
 #endif
 #ifdef SENDE_EMAIL_UEBER_HTML_TEMPLATE
   // Email mit HTML-Template
+  grMail.bHTML = TRUE;
   grMail.szContent = PopulateTemplateByContent(CONTENT_TEMPL_FILE,
                                                T_SUBTITLE,
                                                T_LIST_TITLE,
@@ -202,9 +203,11 @@ int _tmain(int argc, _TCHAR *argv[])
                                                T_DETAIL_TITLE,
                                                T_DETAIL,
                                                T_SIGNATURE);
-  grMail.bHTML = TRUE;
-  // Senden
-  bSuccess = SmtpSendMail(&grMail);
+  if (grMail.szContent != NULL)
+  {
+	  // Senden
+	  bSuccess = SmtpSendMail(&grMail);
+  }
 #endif
 #ifdef SENDE_TEXT_EMAIL
   // Textinhalt
@@ -242,8 +245,9 @@ int _tmain(int argc, _TCHAR *argv[])
     std::cout << (char *)MailLibVectorGet(&TestVector, i) << std::endl;
   }
 #endif
-
-  printf("\nDLL-Test: finished, press any key...\n");
+  std::cout << std::endl
+	  << "DLL-Test: Fertig, bitte Taste druecken... "
+	  << std::endl;
   getchar();
 
   return 0;

@@ -12,7 +12,7 @@ void InitMailStruct(MailType *m)
 {
 	if (m->_initialized == TRUE)
 	{
-		return;
+		FreeMailStruct(m);
 	}
 
 	m->szSmtpServer = (TCHAR *)malloc(sizeof(TCHAR));

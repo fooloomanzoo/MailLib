@@ -190,12 +190,12 @@ MAIL_DLL_EXPORT BOOL SmtpSendMail(MailType *m)
 	} 
 	catch (ECSmtp e)
 	{
-		std::cout << "MailDLL: Error: " << e.GetErrorText() << ".\n";
+		std::cout << "MailDLL: Error: " << e.GetErrorText() << std::endl;
 		NoErrorHasOccurred = FALSE;
 	} 
 	catch (const std::exception &e)
 	{
-		std::cout << "MailDLL: Error: " << e.what();
+		std::cout << "MailDLL: Error: " << e.what() << std::endl;
 		NoErrorHasOccurred = FALSE;
 	} 
 	catch (...)
@@ -329,11 +329,15 @@ MAIL_DLL_EXPORT int MailLibSendMailByHTMLTemplateFile(
 	char *szListTitle, char *szList, char *szDetailTitle, char *szDetailTable,
 	char *szSignaturList)
 {
+	bool res = 0;
 	char *szContent = PopulateTemplateByContent(
 		szTemplateFilePath, szSubtitle, szListTitle, szList, szDetailTitle,
 		szDetailTable, szSignaturList);
-	bool res = MailLibSendMail(szRecip, szSubject, szContent, TRUE);
-	free(szContent);
+	if (szContent != NULL)
+	{
+		res = MailLibSendMail(szRecip, szSubject, szContent, TRUE);
+		free(szContent);
+	}
 	return res;
 }
 
@@ -359,19 +363,19 @@ MAIL_DLL_EXPORT int MailLibSendMailByHTMLTemplateFile(
 //                                getrennt)
 //
 // Return:
-//    Beschriebener String mit gesamten Inhalt
+//    Beschriebener String mit gesamten Inhalt oder NULL, wenn die 
+//      Template-Datei nicht gelesen werden konnte
 /****************************************************************************/
 
-MAIL_DLL_EXPORT char *
-	PopulateTemplateByContent(char *szTemplateFilePath, char *szSubtitle,
-	char *szListTitle, char *szList, char *szDetailTitle,
+MAIL_DLL_EXPORT char *PopulateTemplateByContent(char *szTemplateFilePath, 
+	char *szSubtitle, char *szListTitle, char *szList, char *szDetailTitle,
 	char *szDetailTable, char *szSignaturList)
 {
 	int i;
 	std::stringstream tmp;
 	CVECTOR tmpVec;
 
-	if (FileExists(szTemplateFilePath) == 0)
+	if (FileExists(szTemplateFilePath) == FALSE)
 	{
 		return NULL;
 	}
@@ -726,7 +730,7 @@ std::string VectorToHTML(CVECTOR *Vec,
 //    Pointer zur Variable
 //
 /****************************************************************************/
-char *CopyAndResize(char *dest, const char *orig)
+char *CopyAndResize(char * &dest, const char *orig)
 {
 	int newSize = strlen(orig) * sizeof(char) + 1;
 	dest = (char *)realloc(dest, newSize);
