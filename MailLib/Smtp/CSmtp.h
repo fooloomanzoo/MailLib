@@ -1,8 +1,10 @@
 // CSmtp.h: interface for the Smtp class.
 //
 //////////////////////////////////////////////////////////////////////
-
 #pragma once
+
+#define MAIL_DLL_VERBOSE
+
 #ifndef __CSMTP_H__
 #define __CSMTP_H__
 
@@ -77,7 +79,7 @@ const char SMTP_BOUNDARY_MIXED[] = "------------000406070805010304010807";
 #ifndef SMTP_SECURITY_DEFINTION
 #define SMTP_SECURITY_DEFINTION
 // TLS/SSL extension
-enum SMTP_SECURITY_TYPE {
+enum SmtpSecurityType {
 	NO_SECURITY,
 	USE_TLS,
 	USE_SSL,
@@ -87,7 +89,7 @@ enum SMTP_SECURITY_TYPE {
 
 #ifndef SMTP_PRIORITY_DEFINTION
 #define SMTP_PRIORITY_DEFINTION
-enum CSmptXPriority {
+enum SmptPriority {
 	XPRIORITY_VERY_HIGH,
 	XPRIORITY_HIGH,
 	XPRIORITY_NORMAL,
@@ -274,7 +276,7 @@ public:
 	void AddAttachment(const char *path);
 	void AddMsgLine(const char* text);
 	bool ConnectRemoteServer(const char* szServer, const unsigned short nPort_ = 0,
-		SMTP_SECURITY_TYPE securityType = DO_NOT_SET,
+		SmtpSecurityType securityType = DO_NOT_SET,
 		bool authenticate = true, const char* login = NULL,
 		const char* password = NULL);
 	void DisconnectRemoteServer();
@@ -296,7 +298,7 @@ public:
 	const char* GetSenderName() const;
 	const char* GetSubject() const;
 	const char* GetXMailer() const;
-	CSmptXPriority GetXPriority() const;
+	SmptPriority GetXPriority() const;
 	void Send();
 	void SetCharSet(const char *sCharSet);
 	void SetLocalHostName(const char *sLocalHostName);
@@ -308,7 +310,7 @@ public:
 	void SetXMailer(const char*);
 	void SetLogin(const char*);
 	void SetPassword(const char*);
-	void SetXPriority(CSmptXPriority);
+	void SetXPriority(SmptPriority);
 	void SetSMTPServer(const char* server, const unsigned short port = 0, bool authenticate = true);
 
 	char* szMsgId;
@@ -332,7 +334,7 @@ private:
 	std::string m_sSMTPSrvName;
 	unsigned short m_iSMTPSrvPort;
 	bool m_bAuthenticate;
-	CSmptXPriority m_iXPriority;
+	SmptPriority m_iXPriority;
 
 	char *SendBuf;
 	char *RecvBuf;
@@ -366,18 +368,18 @@ private:
 
 	// TLS/SSL extension
 public:
-	SMTP_SECURITY_TYPE GetSecurityType() const
+	SmtpSecurityType GetSecurityType() const
 	{
 		return m_type;
 	}
-	void SetSecurityType(SMTP_SECURITY_TYPE type)
+	void SetSecurityType(SmtpSecurityType type)
 	{
 		m_type = type;
 	}
 	bool m_bHTML;
 
 private:
-	SMTP_SECURITY_TYPE m_type;
+	SmtpSecurityType m_type;
 	SSL_CTX*      m_ctx;
 	SSL*          m_ssl;
 

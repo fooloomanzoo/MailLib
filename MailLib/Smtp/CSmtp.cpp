@@ -1080,7 +1080,7 @@ void CSmtp::Send()
 // AUTHOR/DATE: JP 2010-01-28
 ////////////////////////////////////////////////////////////////////////////////
 bool CSmtp::ConnectRemoteServer(const char* szServer, const unsigned short nPort_/*=0*/,
-	SMTP_SECURITY_TYPE securityType/*=DO_NOT_SET*/,
+	SmtpSecurityType securityType/*=DO_NOT_SET*/,
 	bool authenticate/*=true*/, const char* login/*=NULL*/,
 	const char* password/*=NULL*/)
 {
@@ -1714,20 +1714,13 @@ void CSmtp::FormatHeader(char* header)
 
 	dwRandomHash = rand();
 
-	try
-	{
-		sprintf_s(szMsgId, BUFFER_MSGID_SIZE, "%d%d%d%d%d%d.%011X@", timeinfo.tm_year + 1900,
+	sprintf_s(szMsgId, BUFFER_MSGID_SIZE, "%d%d%d%d%d%d.%011X@", timeinfo.tm_year + 1900,
 			timeinfo.tm_mon + 1,
 			timeinfo.tm_mday,
 			timeinfo.tm_hour,
 			timeinfo.tm_min,
 			timeinfo.tm_sec,
 			dwRandomHash);
-	}
-	catch (const std::exception& e)
-	{
-		std::cout << e.what();
-	}
 
 	strcat_s(header, BUFFER_SIZE, szMsgId);
 	strcat_s(header, BUFFER_SIZE, m_sSMTPSrvName.c_str());
@@ -2247,11 +2240,11 @@ const char* CSmtp::GetXMailer() const
 //   ARGUMENTS: none
 // USES GLOBAL: m_iXPriority
 // MODIFIES GL: none 
-//     RETURNS: CSmptXPriority m_pcXMailer
+//     RETURNS: SmptPriority m_pcXMailer
 //      AUTHOR: Jakub Piwowarczyk
 // AUTHOR/DATE: JP 2010-01-28
 ////////////////////////////////////////////////////////////////////////////////
-CSmptXPriority CSmtp::GetXPriority() const
+SmptPriority CSmtp::GetXPriority() const
 {
 	return m_iXPriority;
 }
@@ -2301,7 +2294,7 @@ void CSmtp::SetLocalHostName(const char *sLocalHostName)
 ////////////////////////////////////////////////////////////////////////////////
 //        NAME: SetXPriority
 // DESCRIPTION: Setting priority of the message.
-//   ARGUMENTS: CSmptXPriority priority - priority of the message (	XPRIORITY_HIGH,
+//   ARGUMENTS: SmptPriority priority - priority of the message (	XPRIORITY_HIGH,
 //              XPRIORITY_NORMAL, XPRIORITY_LOW)
 // USES GLOBAL: none
 // MODIFIES GL: m_iXPriority 
@@ -2309,7 +2302,7 @@ void CSmtp::SetLocalHostName(const char *sLocalHostName)
 //      AUTHOR: Jakub Piwowarczyk
 // AUTHOR/DATE: JP 2010-01-28
 ////////////////////////////////////////////////////////////////////////////////
-void CSmtp::SetXPriority(CSmptXPriority priority)
+void CSmtp::SetXPriority(SmptPriority priority)
 {
 	m_iXPriority = priority;
 }
@@ -2889,7 +2882,9 @@ void CSmtp::ReceiveResponse(Command_Entry* pEntry)
 		int begin = 0;
 		int offset = 0;
 
+#ifndef MAIL_DLL_VERBOSE
 		std::cout << RecvBuf;
+#endif
 
 		while (1) // loop for all lines
 		{
@@ -2929,7 +2924,9 @@ void CSmtp::ReceiveResponse(Command_Entry* pEntry)
 	OutputDebugStringA(RecvBuf);
 	if (reply_code != pEntry->valid_reply_code)
 	{
+#ifndef MAIL_DLL_VERBOSE
 		std::cout << "Reply Code is not valid: " << reply_code << "\nError-Code: " << static_cast<int>(pEntry->error);
+#endif
 		throw ECSmtp(pEntry->error);
 	}
 }

@@ -22,7 +22,7 @@ extern "C" {
 #ifndef SMTP_SECURITY_DEFINTION
   #define SMTP_SECURITY_DEFINTION
   // TLS/SSL extension
-  enum SMTP_SECURITY_TYPE {
+  enum SmtpSecurityType {
     NO_SECURITY,
     USE_TLS,
     USE_SSL,
@@ -32,7 +32,7 @@ extern "C" {
 
 #ifndef SMTP_PRIORITY_DEFINTION
   #define SMTP_PRIORITY_DEFINTION
-  enum CSmptXPriority {
+  enum SmptPriority {
     XPRIORITY_VERY_HIGH,
     XPRIORITY_HIGH,
     XPRIORITY_NORMAL,
@@ -56,10 +56,10 @@ extern "C" {
 
 typedef struct MAIL_TYPE {
   TCHAR *szSmtpServer;  /* Name des Smtp-Servers */
-  int szSmtpServerPort; /* Port des Smtp-Servers (Standards fuers Senden: Keine Verschluesselung --> 25, TLS/SSL --> 465 oder 587)*/
-  enum SMTP_SECURITY_TYPE iSmtpSecurityType;
+  int  szSmtpServerPort;/* Port des Smtp-Servers (Standards fuers Senden: Keine Verschluesselung --> 25, TLS/SSL --> 465 oder 587)*/
+  enum SmtpSecurityType iSmtpSecurityType;
                         /* Security Type des Smtp-Servers (NO_SECURITY --> 0, USE_TLS --> 1, USE_SSL --> 2, DO_NOT_SET --> 3) */
-  enum CSmptXPriority iSmtpPriority;
+  enum SmptPriority iSmtpPriority;
                         /* Sendeprioritaet (XPRIORITY_VERY_HIGH --> 1, XPRIORITY_HIGH --> 2, XPRIORITY_NORMAL --> 3, XPRIORITY_LOW --> 4) */
   TCHAR *szMailerName;  /* Name des Mailingsprogramms */
   TCHAR *szSmtpUser;    /* Username des Smtp-Accounts */
@@ -70,7 +70,7 @@ typedef struct MAIL_TYPE {
   TCHAR *szReplyAddress;  /* Adresse fuer Rueckantworten  */
   TCHAR *szSubject;       /* Betreff der Email */
   TCHAR *szContent;       /* Text-Inhalt der Email */
-  BOOL  bHTML;            /* Text-Inhalt ist im HTML-Format */
+  BOOL   bHTML;           /* Text-Inhalt ist im HTML-Format */
 
   CVECTOR RecipVec;    /* Vektor von Strings mit Empfaengeraddressen */
   CVECTOR CcRecipVec;  /* Vektor von Strings mit (oeffentlichen) KopienEmpfaengeraddressen */

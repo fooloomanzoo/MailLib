@@ -190,23 +190,31 @@ MAIL_DLL_EXPORT BOOL SmtpSendMail(MailType *m)
 	} 
 	catch (ECSmtp e)
 	{
+#ifndef MAIL_DLL_VERBOSE
 		std::cout << "MailDLL: Error: " << e.GetErrorText() << std::endl;
+#endif
 		NoErrorHasOccurred = FALSE;
 	} 
 	catch (const std::exception &e)
 	{
+#ifndef MAIL_DLL_VERBOSE
 		std::cout << "MailDLL: Error: " << e.what() << std::endl;
+#endif
 		NoErrorHasOccurred = FALSE;
 	} 
 	catch (...)
 	{
+#ifndef MAIL_DLL_VERBOSE
 		std::cout << "MailDLL: Undefined Error\n";
+#endif
 		NoErrorHasOccurred = FALSE;
 	}
 
 	if (NoErrorHasOccurred == TRUE)
 	{
+#ifndef MAIL_DLL_VERBOSE
 		std::cout << "MailDLL: Mail was send successfully.\n";
+#endif
 	}
 	// TODO: Speicher freigeben von grMail?
 	return NoErrorHasOccurred;
@@ -236,7 +244,7 @@ MAIL_DLL_EXPORT int MailLibInit(char *szSmtpServer, int szSmtpPort,
 	grMail.szSmtpServer = CopyAndResize(grMail.szSmtpServer, szSmtpServer);
 
 	grMail.szSmtpServerPort = szSmtpPort;
-	grMail.iSmtpSecurityType = (SMTP_SECURITY_TYPE)szSmtpSecurityType;
+	grMail.iSmtpSecurityType = (SmtpSecurityType)szSmtpSecurityType;
 
 	// Mail Parameter setzen
 	grMail.iSmtpPriority = XPRIORITY_NORMAL;
@@ -250,8 +258,7 @@ MAIL_DLL_EXPORT int MailLibInit(char *szSmtpServer, int szSmtpPort,
 	MailLibVectorInit(&(grMail.AttachVec));
 
 	// Absenderinformationen
-	grMail.szSenderAddress =
-		CopyAndResize(grMail.szSenderAddress, szSenderAddress);
+	grMail.szSenderAddress = CopyAndResize(grMail.szSenderAddress, szSenderAddress);
 	grMail.szReplyAddress = CopyAndResize(grMail.szReplyAddress, szSenderAddress);
 	grMail.szSenderName = CopyAndResize(grMail.szSenderName, szSenderName);
 	grMail.szMailerName = CopyAndResize(grMail.szMailerName, szMailerName);
@@ -266,13 +273,13 @@ MAIL_DLL_EXPORT int MailLibInit(char *szSmtpServer, int szSmtpPort,
 // Zweck:
 // Initialisiert die Mailstruktur mit Standardparametern
 //
-//    Parameter:
+// Parameter:
 //    char* szRecip,    Empfaenger-Addressen (loennen mit ","/";" getrennt sein
 //    char* szSubject,  Betreffzeile
 //    char* szContent      E-Mail-Inhalt
-//  BOOL bHTML          E-Mail-Inhalt ist in HTML
+//    BOOL bHTML          E-Mail-Inhalt ist in HTML
 //
-//    Return:
+// Return:
 //    int 1 wenn OK oder 0 wenn fehlgeschlagen
 /****************************************************************************/
 
