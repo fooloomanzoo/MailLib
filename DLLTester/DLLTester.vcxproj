@@ -57,7 +57,8 @@
       <ProgramDataBaseFileName>$(TEMP)\$(ProjectName)\$(Configuration)\vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
       <BrowseInformationFile>$(TEMP)\$(ProjectName)\$(Configuration)\</BrowseInformationFile>
       <PrecompiledHeaderOutputFile>$(TEMP)\$(ProjectName)\$(TargetName).pch</PrecompiledHeaderOutputFile>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -2,6 +2,8 @@
 #ifndef MAILLIB_H_INCLUDED
   #define MAILLIB_H_INCLUDED
 
+//#define MAIL_DLL_VERBOSE
+
 #ifdef __cplusplus
 extern "C" {
 #endif

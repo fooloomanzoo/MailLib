@@ -3,8 +3,6 @@
 //////////////////////////////////////////////////////////////////////
 #pragma once
 
-#define MAIL_DLL_VERBOSE
-
 #ifndef __CSMTP_H__
 #define __CSMTP_H__
 
@@ -49,6 +47,8 @@
 	#include <winsock2.h>
 	#include <time.h>
 #pragma comment(lib, "ws2_32.lib")
+
+#include "../MailLib.h"
 
 #include <stdio.h>
 #include <fstream>

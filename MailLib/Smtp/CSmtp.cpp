@@ -2882,7 +2882,7 @@ void CSmtp::ReceiveResponse(Command_Entry* pEntry)
 		int begin = 0;
 		int offset = 0;
 
-#ifndef MAIL_DLL_VERBOSE
+#ifdef MAIL_DLL_VERBOSE
 		std::cout << RecvBuf;
 #endif
 
@@ -2924,7 +2924,7 @@ void CSmtp::ReceiveResponse(Command_Entry* pEntry)
 	OutputDebugStringA(RecvBuf);
 	if (reply_code != pEntry->valid_reply_code)
 	{
-#ifndef MAIL_DLL_VERBOSE
+#ifdef MAIL_DLL_VERBOSE
 		std::cout << "Reply Code is not valid: " << reply_code << "\nError-Code: " << static_cast<int>(pEntry->error);
 #endif
 		throw ECSmtp(pEntry->error);

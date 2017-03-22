@@ -1,7 +1,5 @@
 #pragma once
 
-#define MAIL_DLL_VERBOSE
-
 #ifndef MAIL_DLL_H_INCLUDED
   #define MAIL_DLL_H_INCLUDED
 

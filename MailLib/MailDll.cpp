@@ -55,6 +55,7 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserve
 			InitMailStruct(&grMail);
 		break;
 	case DLL_THREAD_DETACH:
+		break;
 	case DLL_PROCESS_DETACH:
 		// Globale Struktur wird deallokiert
 		if (grMail._initialized == TRUE)
@@ -95,7 +96,6 @@ MAIL_DLL_EXPORT BOOL SmtpSendMail(MailType *m)
 	try
 	{
 		int i;
-
 		// Verbindungseinstellungen
 		if (!m->szSmtpServerPort)
 		{ /* Benutze Standard-Ports,
@@ -190,21 +190,21 @@ MAIL_DLL_EXPORT BOOL SmtpSendMail(MailType *m)
 	} 
 	catch (ECSmtp e)
 	{
-#ifndef MAIL_DLL_VERBOSE
+#ifdef MAIL_DLL_VERBOSE
 		std::cout << "MailDLL: Error: " << e.GetErrorText() << std::endl;
 #endif
 		NoErrorHasOccurred = FALSE;
 	} 
 	catch (const std::exception &e)
 	{
-#ifndef MAIL_DLL_VERBOSE
+#ifdef MAIL_DLL_VERBOSE
 		std::cout << "MailDLL: Error: " << e.what() << std::endl;
 #endif
 		NoErrorHasOccurred = FALSE;
 	} 
 	catch (...)
 	{
-#ifndef MAIL_DLL_VERBOSE
+#ifdef MAIL_DLL_VERBOSE
 		std::cout << "MailDLL: Undefined Error\n";
 #endif
 		NoErrorHasOccurred = FALSE;
@@ -212,7 +212,7 @@ MAIL_DLL_EXPORT BOOL SmtpSendMail(MailType *m)
 
 	if (NoErrorHasOccurred == TRUE)
 	{
-#ifndef MAIL_DLL_VERBOSE
+#ifdef MAIL_DLL_VERBOSE
 		std::cout << "MailDLL: Mail was send successfully.\n";
 #endif
 	}

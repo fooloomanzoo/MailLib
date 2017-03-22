@@ -83,9 +83,9 @@ int _tmain(int argc, _TCHAR *argv[])
 	bool SENDE_EINFACHE_HTML_EMAIL = true;
 	bool SENDE_TEXT_EMAIL = true;
 	bool VEKTOR_TEST = false;
-
 	char *SMPTSERVER = TEXT("mailrelay.fz-juelich.de");
-	int  SMPTPORT = 25;
+	//char *SMPTSERVER = TEXT("mailrelay.fz-juelich.de");
+	int  SMPTPORT = 587;
 	SmtpSecurityType SMPTSECURITY = USE_TLS;
 	char *MAILERNAME = TEXT("MailLibDll-Tester");
 	SmptPriority PRIORITY = XPRIORITY_NORMAL;
@@ -134,7 +134,7 @@ int _tmain(int argc, _TCHAR *argv[])
 			std::cout << std::endl << "DLL-Test: Setzen durch Funktionen und Senden einer HTML-Mail war " << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl;
 			bSuccess = false;
 		} 
-		else if (SENDE_EMAIL_UEBER_HTML_TEMPLATE) 
+		if (SENDE_EMAIL_UEBER_HTML_TEMPLATE) 
 		{   // Email mit HTML-Template
 			// Setzen & Senden
 			bSuccess = MailLibSendMailByHTMLTemplateFile(RECIPIENTS, SUBJECT, CONTENT_TEMPL_FILE, T_SUBTITLE, T_LIST_TITLE, 
@@ -142,7 +142,7 @@ int _tmain(int argc, _TCHAR *argv[])
 			std::cout << std::endl << "DLL-Test: Setzen durch Funktionen über HTML-Template und Senden einer HTML-Mail war " << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl;
 			bSuccess = false;
 		} 
-		else if (SENDE_TEXT_EMAIL) 
+		if (SENDE_TEXT_EMAIL) 
 		{   // Text-Email
 		    // Setzen & Senden
 			bSuccess = MailLibSendMail(RECIPIENTS, SUBJECT, CONTENT, TRUE);			
