@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="SampleContent">
+      <UniqueIdentifier>{3f376a36-7998-4c5e-9ed2-9fe6f3c8b6b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -29,5 +32,19 @@
     <ClCompile Include="DLLTester.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\SampleContent\Test-Anhang.csv">
+      <Filter>SampleContent</Filter>
+    </None>
+    <None Include="..\SampleContent\Test-HTML-Template.html">
+      <Filter>SampleContent</Filter>
+    </None>
+    <None Include="..\SampleContent\Test-HTML-Inhalt.html">
+      <Filter>SampleContent</Filter>
+    </None>
+    <None Include="..\SampleContent\Test-HTML-Template-Simple.html">
+      <Filter>SampleContent</Filter>
+    </None>
   </ItemGroup>
 </Project>

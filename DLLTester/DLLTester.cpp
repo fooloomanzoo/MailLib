@@ -100,7 +100,7 @@ int _tmain(int argc, _TCHAR *argv[])
 	char *CONTENT_TEMPL_FILE = TEXT("..\\SampleContent\\Test-HTML-Template.html");
 
 	char *T_SUBTITLE = TEXT("Das is ein beliebiger Vorschau-Text");
-	char *T_LIST_TITLE = TEXT("Hier stehen die Listeneinträge:");
+	char *T_LIST_TITLE = TEXT("Hier stehen die Listeneintraege:");
 	char *T_LIST = TEXT("Eintrag 1; Eintrag 2");
 	char *T_DETAIL_TITLE = TEXT("Hier befindet sich die Tabelle mit den Details:");
 	char *T_DETAIL = TEXT("Zeile 1 Spalte 1;Zeile 1 Spalte 2;Zeile 1 Spalte 3|Zeile 2 Spalte 1;Zeile 2 Spalte 2;Zeile 2 Spalte 3;Zeile 2 Spalte 4");
@@ -150,7 +150,7 @@ int _tmain(int argc, _TCHAR *argv[])
 			// Setzen & Senden
 			bSuccess = MailLibSendMailByHTMLTemplateFile(RECIPIENTS, SUBJECT, CONTENT_TEMPL_FILE, T_SUBTITLE, T_LIST_TITLE, 
 				                                           T_LIST, T_DETAIL_TITLE, T_DETAIL, T_SIGNATURE);
-			std::cout << std::endl << "DLL-Test: Setzen durch Funktionen über HTML-Template und Senden einer HTML-Mail war " << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl;
+			std::cout << std::endl << "DLL-Test: Setzen durch Funktionen mit HTML-Template und Senden einer HTML-Mail war " << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl;
 			bSuccess = false;
 		} 
 		if (SENDE_TEXT_EMAIL) 

@@ -121,6 +121,14 @@
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\SampleContent\Test-Anhang.csv" />
+    <None Include="..\SampleContent\Test-HTML-Inhalt.html" />
+    <None Include="..\SampleContent\Test-HTML-Template-Simple.html" />
+    <None Include="..\SampleContent\Test-HTML-Template.html">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

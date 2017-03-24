@@ -19,9 +19,6 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{74389c20-9742-49eb-8824-51aeb9665729}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SampleContent">
-      <UniqueIdentifier>{b05254a7-1484-4016-a9cb-451bd5904162}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MailDll.cpp">
@@ -81,19 +78,5 @@
     <Library Include="Resources\WS2_32.LIB">
       <Filter>Ressourcendateien</Filter>
     </Library>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\SampleContent\Test-Anhang.csv">
-      <Filter>SampleContent</Filter>
-    </None>
-    <None Include="..\SampleContent\Test-HTML-Inhalt.html">
-      <Filter>SampleContent</Filter>
-    </None>
-    <None Include="..\SampleContent\Test-HTML-Template-Simple.html">
-      <Filter>SampleContent</Filter>
-    </None>
-    <None Include="..\SampleContent\Test-HTML-Template.html">
-      <Filter>SampleContent</Filter>
-    </None>
   </ItemGroup>
 </Project>
