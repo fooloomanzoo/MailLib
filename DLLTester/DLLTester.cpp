@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <windows.h>
+#include <conio.h>
 
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
@@ -47,7 +48,6 @@ namespace std
 
 char szVerInfo[512]; // String um die Versionsinfo der DLL zu halten
 char szDirInfo[512]; // String um die Versionsinfo der DLL zu halten
-
 
 int _tmain(int argc, _TCHAR *argv[])
 {
@@ -93,24 +93,35 @@ int _tmain(int argc, _TCHAR *argv[])
 	char *SENDER = TEXT("j.brautzsch@fz-juelich.de");
 	char *SENDERNAME = TEXT("Johannes Brautzsch");
 	char *USER = TEXT("j.brautzsch");
-	char *PASS = TEXT("xxx");
+	char *PASS = NULL;
 
 	char *CONTENT = TEXT("This is a Test-Email!");
 	char *CONTENT_FILE = TEXT("..\\SampleContent\\Test-HTML-Inhalt.html");
 	char *CONTENT_TEMPL_FILE = TEXT("..\\SampleContent\\Test-HTML-Template.html");
 
 	char *T_SUBTITLE = TEXT("Das is ein beliebiger Vorschau-Text");
-	char *T_LIST_TITLE = TEXT("Hier stehen die Listeneintr√§ge:");
+	char *T_LIST_TITLE = TEXT("Hier stehen die Listeneintr‰ge:");
 	char *T_LIST = TEXT("Eintrag 1; Eintrag 2");
 	char *T_DETAIL_TITLE = TEXT("Hier befindet sich die Tabelle mit den Details:");
-	char *T_DETAIL = TEXT("Zeile 1 Spalte 1;Zeile 1 Spalte 2;Zeile 1 Spalte 3|\
-                           Zeile 2 Spalte 1;Zeile 2 Spalte 2;Zeile 2 Spalte 3;Zeile 2 Spalte 4");
+	char *T_DETAIL = TEXT("Zeile 1 Spalte 1;Zeile 1 Spalte 2;Zeile 1 Spalte 3|Zeile 2 Spalte 1;Zeile 2 Spalte 2;Zeile 2 Spalte 3;Zeile 2 Spalte 4");
 	char *T_SIGNATURE = TEXT("Your Name;Your Street;Your Tel;Your Email");
 
 	char *ATTACHMENT_PATH = TEXT("..\\SampleContent\\Test-Anhang.csv");
 	char *SUBJECT = TEXT("Test Email");
 	char *RECIPIENTS = TEXT("j.brautzsch@fz-juelich.de;johannes.brautzsch@gmail.com");
 
+	// Passwort einlesen
+	std::string tmp;
+	char ch;
+	std::cout << std::endl << SMPTSERVER << " " << SMPTPORT << std::endl << SENDER << std::endl << USER << std::endl <<  "Passwort: ";
+	ch = _getch();
+	while (ch != 13) { // Character 13 ist Enter
+		tmp.push_back(ch);
+		std::cout << '*'; // Versteckte Ausgabe
+		ch = _getch();
+	}
+	std::cout << std::endl;
+	PASS = strdup(tmp.c_str());
 
 	/*****************************************************************************/
 	/*                   SENDEN PER UMSCHLIESSENDEN FUNKTIONEN                   */
@@ -139,7 +150,7 @@ int _tmain(int argc, _TCHAR *argv[])
 			// Setzen & Senden
 			bSuccess = MailLibSendMailByHTMLTemplateFile(RECIPIENTS, SUBJECT, CONTENT_TEMPL_FILE, T_SUBTITLE, T_LIST_TITLE, 
 				                                           T_LIST, T_DETAIL_TITLE, T_DETAIL, T_SIGNATURE);
-			std::cout << std::endl << "DLL-Test: Setzen durch Funktionen √ºber HTML-Template und Senden einer HTML-Mail war " << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl;
+			std::cout << std::endl << "DLL-Test: Setzen durch Funktionen ¸ber HTML-Template und Senden einer HTML-Mail war " << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl;
 			bSuccess = false;
 		} 
 		if (SENDE_TEXT_EMAIL) 

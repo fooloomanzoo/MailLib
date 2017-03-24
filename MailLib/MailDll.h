@@ -9,7 +9,7 @@
   #define MAIL_DLL_EXPORT __declspec(dllimport)
 #endif
 
-// String-GrÃ¶ÃŸen
+// String-Größen
 #ifndef RETURNSIZE
   #define RETURNSIZE 255
 #endif

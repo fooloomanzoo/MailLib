@@ -1,9 +1,9 @@
-ï»¿////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 // SMTP-Class
 //
 // Modifikation von: https://www.codeproject.com/Articles/28806/SMTP-Client
 //
-// AbhÃ¤ngigkeiten: Vorkompilierte Openssl-Bibliotheken (https://slproweb.com/products/Win32OpenSSL.html)
+// Abhängigkeiten: Vorkompilierte Openssl-Bibliotheken (https://slproweb.com/products/Win32OpenSSL.html)
 //					1. Installation von OpenSSL > v1.1.0
 //					2. Kopieren aus Installationsordner "include"- und "lib"-Verzeichnis in "OpenSSL"-Ordner
 ////////////////////////////////////////////////////////////////////////////////
@@ -2572,13 +2572,13 @@ std::string ECSmtp::GetErrorText() const
 	case ECSmtp::SERVER_NOT_AVAILABLE:
 		return "Server-Service not available (421)";
 	case ECSmtp::MAILBOX_STORAGE_EXCEEDED:
-		return "The recipientâ€™s mailbox is over its storage limit (422)";
+		return "The recipient’s mailbox is over its storage limit (422)";
 	case ECSmtp::MAILBOX_DISK_FULL:
-		return "The recipientâ€™s mail server is experiencing a Disk Full condition (431)";
+		return "The recipient’s mail server is experiencing a Disk Full condition (431)";
 	case ECSmtp::EXCHANGE_QUEUE_STOPPED:
-		return "The recipientâ€™s Exchange Server incoming mail queue has been stopped (432)";
+		return "The recipient’s Exchange Server incoming mail queue has been stopped (432)";
 	case ECSmtp::SERVER_IS_NOT_RESPONDING:
-		return "The recipientâ€™s server is not responding (441)";
+		return "The recipient’s server is not responding (441)";
 	case ECSmtp::CONNECTION_DROPPED:
 		return "The connection was dropped during transmission (442)";
 	case ECSmtp::RECONNECTION_EXCEED:
@@ -2588,11 +2588,11 @@ std::string ECSmtp::GetErrorText() const
 	case ECSmtp::ROUTING_ERROR:
 		return "Routing error (449)";
 	case ECSmtp::MAILBOX_TEMP_UNAVAILABLE:
-		return "Requested action not taken â€“ The mailbox was unavailable at the remote end (450)";
+		return "Requested action not taken – The mailbox was unavailable at the remote end (450)";
 	case ECSmtp::LOCAL_PROCESS_ERROR:
-		return "Requested action aborted â€“ Local error in processing (451)";
+		return "Requested action aborted – Local error in processing (451)";
 	case ECSmtp::INSUFFICIENT_STORAGE:
-		return "Requested action not taken â€“ Insufficient storage (452)";
+		return "Requested action not taken – Insufficient storage (452)";
 	case ECSmtp::CODE_PAGE_UNAVAILABLE:
 		return "Code Page unavailable on the recipient server (465)";
 	case ECSmtp::LOCAL_ERROR:
@@ -2612,23 +2612,23 @@ std::string ECSmtp::GetErrorText() const
 	case ECSmtp::BAD_EMAIL_ADDRESS:
 		return "Bad email address (511)";
 	case ECSmtp::HOST_SERVER_NOT_FOUND:
-		return "The host server for the recipientâ€™s domain name cannot be found (DNS error) (512)";
+		return "The host server for the recipient’s domain name cannot be found (DNS error) (512)";
 	case ECSmtp::BAD_EMAIL_ADDRESS_FORMAT:
 		return "Address type is incorrect (513)";
 	case ECSmtp::SERVER_DOES_NOT_ACCEPT_MAIL:
 		return "<domain> does not accept mail (see rfc1846) (521)";
 	case ECSmtp::RECIP_DENIED_MSG_TOO_BIG:
-		return "The Recipientâ€™s mailbox cannot receive messages this big (523)";
+		return "The Recipient’s mailbox cannot receive messages this big (523)";
 	case ECSmtp::ACCESS_DENIED:
 		return "Access denied (???a Sendmailism) (530)";
 	case ECSmtp::MAILBOX_UNAVAILABLE:
 		return "Requested actions not taken as the mailbox is unavailable (550)";
 	case ECSmtp::USER_NOT_LOCAL:
-		return "User not local or invalid address â€“ Relay denied (551)";
+		return "User not local or invalid address – Relay denied (551)";
 	case ECSmtp::RECIP_DENIED_MAILBOX_EXCEED:
-		return "Requested mail actions aborted â€“ Exceeded storage allocation (552)";
+		return "Requested mail actions aborted – Exceeded storage allocation (552)";
 	case ECSmtp::MAILBOX_NAME_NOT_ALLOWED:
-		return "Requested action not taken â€“ Mailbox name invalid (553)";
+		return "Requested action not taken – Mailbox name invalid (553)";
 	case ECSmtp::TRANSACTION_FAILED:
 		return "Transaction failed (554)";
 	case ECSmtp::ERRNO_EPERM:

@@ -60,6 +60,7 @@
       <ObjectFileName>$(TEMP)\$(ProjectName)\$(Configuration)\</ObjectFileName>
       <ProgramDataBaseFileName>$(TEMP)\$(ProjectName)\$(Configuration)\vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
       <BrowseInformationFile>$(TEMP)\$(ProjectName)\$(Configuration)\</BrowseInformationFile>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -93,6 +94,7 @@
       <ObjectFileName>$(TEMP)\$(ProjectName)\$(Configuration)\</ObjectFileName>
       <ProgramDataBaseFileName>$(TEMP)\$(ProjectName)\$(Configuration)\vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
       <BrowseInformationFile>$(TEMP)\$(ProjectName)\$(Configuration)\</BrowseInformationFile>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>

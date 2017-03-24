@@ -56,7 +56,7 @@
       <ObjectFileName>$(TEMP)\$(ProjectName)\$(Configuration)\</ObjectFileName>
       <ProgramDataBaseFileName>$(TEMP)\$(ProjectName)\$(Configuration)\vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
       <BrowseInformationFile>$(TEMP)\$(ProjectName)\$(Configuration)\</BrowseInformationFile>
-      <PrecompiledHeaderOutputFile>$(TEMP)\$(ProjectName)\$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeaderOutputFile>$(TEMP)\$(ProjectName)\$(Configuration)\$(TargetName).pch</PrecompiledHeaderOutputFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
@@ -76,7 +76,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <Optimization>Full</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -84,7 +84,8 @@
       <ObjectFileName>$(TEMP)\$(ProjectName)\$(Configuration)\</ObjectFileName>
       <ProgramDataBaseFileName>$(TEMP)\$(ProjectName)\$(Configuration)\vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
       <BrowseInformationFile>$(TEMP)\$(ProjectName)\$(Configuration)\</BrowseInformationFile>
-      <PrecompiledHeaderOutputFile>$(TEMP)\$(ProjectName)\$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeaderOutputFile>$(TEMP)\$(ProjectName)\$(Configuration)\$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
