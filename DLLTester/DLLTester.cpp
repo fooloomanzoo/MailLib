@@ -8,6 +8,7 @@
 /*****************************************************************************/
 #include "stdafx.h"
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <windows.h>
 #include <conio.h>
@@ -15,6 +16,9 @@
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
 #include <stdlib.h>
+
+// DEFINE Verbose Modus
+// #define MAIL_DLL_VERBOSE
 
 namespace std
 {
@@ -71,20 +75,24 @@ int _tmain(int argc, _TCHAR *argv[])
 
 	bool bSuccess = false;
 
-
 	/*****************************************************************************/
-	/*                            TESTDEFINITIONEN                               */
+	/*                               TESTFAELLE                                  */
 	/*****************************************************************************/
-
 	bool BENUTZE_DIREKTE_FUNKTIONEN = true;
 	bool SETZE_MAIL_STRUKTUR_SELBST = true;
 
 	bool SENDE_EMAIL_UEBER_HTML_TEMPLATE = true;
 	bool SENDE_EINFACHE_HTML_EMAIL = true;
 	bool SENDE_TEXT_EMAIL = true;
+
+	bool PORT_TEST = true;
 	bool VEKTOR_TEST = false;
+
+	/*****************************************************************************/
+	/*                            TESTDEFINITIONEN                               */
+	/*****************************************************************************/
+
 	char *SMPTSERVER = TEXT("mailrelay.fz-juelich.de");
-	//char *SMPTSERVER = TEXT("mailrelay.fz-juelich.de");
 	int  SMPTPORT = 587;
 	SmtpSecurityType SMPTSECURITY = USE_TLS;
 	char *MAILERNAME = TEXT("MailLibDll-Tester");
@@ -94,6 +102,10 @@ int _tmain(int argc, _TCHAR *argv[])
 	char *SENDERNAME = TEXT("Johannes Brautzsch");
 	char *USER = TEXT("j.brautzsch");
 	char *PASS = NULL;
+
+	//char *SMPTSERVER = TEXT("smtp.gmail.com");
+	//char *SENDER = TEXT("johannes.brautzsch@gmail.com");
+	//char *USER = TEXT("johannes.brautzsch@gmail.com");
 
 	char *CONTENT = TEXT("This is a Test-Email!");
 	char *CONTENT_FILE = TEXT("..\\SampleContent\\Test-HTML-Inhalt.html");
@@ -112,9 +124,8 @@ int _tmain(int argc, _TCHAR *argv[])
 
 	// Passwort einlesen
 	std::string tmp;
-	char ch;
-	std::cout << std::endl << SMPTSERVER << " " << SMPTPORT << std::endl << SENDER << std::endl << USER << std::endl <<  "Passwort: ";
-	ch = _getch();
+	std::cout << SMPTSERVER << " " << SMPTPORT << std::endl << SENDER << std::endl << USER << std::endl <<  "Passwort: ";
+	char ch = _getch();
 	while (ch != 13) { // Character 13 ist Enter
 		tmp.push_back(ch);
 		std::cout << '*'; // Versteckte Ausgabe
@@ -123,11 +134,13 @@ int _tmain(int argc, _TCHAR *argv[])
 	std::cout << std::endl;
 	PASS = strdup(tmp.c_str());
 
+
 	/*****************************************************************************/
 	/*                   SENDEN PER UMSCHLIESSENDEN FUNKTIONEN                   */
 	/*****************************************************************************/
 	if (BENUTZE_DIREKTE_FUNKTIONEN)
 	{
+		std::cout << "DLL-Test: SENDEN PER UMSCHLIESSENDEN FUNKTIONEN (MailLibSendMail)" << std::endl;
 		// ---- Server Initialisieren -----
 		MailLibInit(SMPTSERVER, SMPTPORT, SMPTSECURITY, SENDER, SENDERNAME, MAILERNAME);
 		MailLibSetAuthentification(USER, PASS);
@@ -141,26 +154,30 @@ int _tmain(int argc, _TCHAR *argv[])
 		if (SENDE_EINFACHE_HTML_EMAIL) 
 		{   // HTML-Email
 			// Datei einlesen, Setzen & Senden
+			std::cout << "DLL-Test: HTML-Email einlesen, Setzen & Senden (MailLibSendMail)" << std::endl;
 			bSuccess = MailLibSendMail(RECIPIENTS, SUBJECT, MailLibReadFromFile(CONTENT_FILE), TRUE);			
-			std::cout << std::endl << "DLL-Test: Setzen durch Funktionen und Senden einer HTML-Mail war " << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl;
+			std::cout << "DLL-Test:" << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl << std::endl;
 			bSuccess = false;
 		} 
 		if (SENDE_EMAIL_UEBER_HTML_TEMPLATE) 
 		{   // Email mit HTML-Template
 			// Setzen & Senden
+			std::cout << "DLL-Test: HTML-Template einlesen, Setzen & Senden (MailLibSendMailByHTMLTemplateFile)" << std::endl;
 			bSuccess = MailLibSendMailByHTMLTemplateFile(RECIPIENTS, SUBJECT, CONTENT_TEMPL_FILE, T_SUBTITLE, T_LIST_TITLE, 
 				                                           T_LIST, T_DETAIL_TITLE, T_DETAIL, T_SIGNATURE);
-			std::cout << std::endl << "DLL-Test: Setzen durch Funktionen mit HTML-Template und Senden einer HTML-Mail war " << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl;
+			std::cout << "DLL-Test: " << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl << std::endl;
 			bSuccess = false;
 		} 
 		if (SENDE_TEXT_EMAIL) 
 		{   // Text-Email
 		    // Setzen & Senden
+			std::cout <<  "DLL-Test: Text-Email Setzen & Senden (MailLibSendMail)" << std::endl;
 			bSuccess = MailLibSendMail(RECIPIENTS, SUBJECT, CONTENT, TRUE);			
-			std::cout << std::endl << "DLL-Test: Setzen durch Funktionen und Senden einer Text-Mail war " << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl;
+			std::cout << "DLL-Test: " << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl << std::endl;
 			bSuccess = false;
 		}
 	}
+
 
 /*****************************************************************************/
 /*                      DIREKTES SETZEN DER MAIL-STRUKTUR                    */
@@ -168,6 +185,7 @@ int _tmain(int argc, _TCHAR *argv[])
 	if (SETZE_MAIL_STRUKTUR_SELBST)
 	{   // Beginn der Initialierung der Mail-Parameter-Struktur
 		// Struktur anlegen
+		std::cout << "DLL-Test: DIREKTES SETZEN DER MAIL-STRUKTUR (SmtpSendMail)" << std::endl;
 		MailType grMail;
 
 		// Empfaenger
@@ -203,15 +221,17 @@ int _tmain(int argc, _TCHAR *argv[])
 		// ---- Setzen des Inhalts ----
 		if (SENDE_EINFACHE_HTML_EMAIL)
 		{   // HTML-Email
+			std::cout << "DLL-Test: HTML-Email (SmtpSendMail)" << std::endl;
 			grMail.szContent = MailLibReadFromFile(CONTENT_FILE);
 			grMail.bHTML = true;
 			// Senden
 			bSuccess = SmtpSendMail(&grMail);			
-			std::cout << std::endl << "DLL-Test: Direktes Setzen und Senden einer HTML-Mail war " << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl;
+			std::cout << "DLL-Test: " << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl << std::endl;
 			bSuccess = false;
 		}
 		if (SENDE_EMAIL_UEBER_HTML_TEMPLATE)
 		{   // Email mit HTML-Template
+			std::cout << "DLL-Test: Email mit HTML-Template (PopulateTemplateByContent, SmtpSendMail)" << std::endl;
 			grMail.bHTML = TRUE;
 			grMail.szContent = PopulateTemplateByContent(CONTENT_TEMPL_FILE,
 				T_SUBTITLE,
@@ -224,27 +244,92 @@ int _tmain(int argc, _TCHAR *argv[])
 			{   // Senden
 				bSuccess = SmtpSendMail(&grMail);
 			}
-			std::cout << std::endl << "DLL-Test: Direktes Setzen per HTML-Template und Senden einer HTML-Mail war " << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl;
+			std::cout << "DLL-Test: " << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl << std::endl;
 			bSuccess = false;
 		}
 		if (SENDE_TEXT_EMAIL)
 		{   // Text-Email
+			std::cout << "DLL-Test: Text-Email (SmtpSendMail)" << std::endl;
 			// Textinhalt
 			grMail.szContent = CONTENT;
 			// Senden
 			bSuccess = SmtpSendMail(&grMail);
-			std::cout << std::endl << "DLL-Test: Direktes Setzen und Senden einer Text-Mail war " << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl;
+			std::cout << "DLL-Test: " << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl << std::endl;
 			bSuccess = false;
 		}
 	}
 
-    
+
+/*****************************************************************************/
+/*                               PORT_TESTS                                  */
+/*****************************************************************************/
+	if (PORT_TEST)
+	{
+		std::cout << "DLL-Test: Port Tests \n--> Ports: \n25 (unverschluesselt), \n3333 (Fehler beim Senden erwartet), \n465 (Standard SMTP-SSL), \n587 (Standard SMTP-TLS)" << std::endl;
+		std::stringstream ss;
+		std::string sContent;
+		int ports[4] = {25, 3333, 465, 587};
+		SmtpSecurityType securityTypes[4] = { NO_SECURITY, USE_TLS, USE_SSL, DO_NOT_SET };
+		char* securityTypeTexts[4] = { TEXT("NO_SECURITY"), TEXT("USE_TLS"), TEXT("USE_SSL"), TEXT("DO_NOT_SET") };
+
+		// Beginn der Initialierung der Mail-Parameter-Struktur
+		// Struktur anlegen
+		MailType grMail;
+
+		// Empfaenger
+		MailLibVectorInit(&(grMail.RecipVec));
+		StringToVector(&(grMail.RecipVec), RECIPIENTS, ";,");
+		// Adresse der Kopienempfaenger
+		MailLibVectorInit(&(grMail.CcRecipVec));
+		// Adresse der Blind-Kopienempfaenger
+		MailLibVectorInit(&(grMail.BccRecipVec));
+		// Smtp-Server
+		grMail.szSmtpServer = SMPTSERVER;
+		grMail.iSmtpPriority = PRIORITY;
+		// Authentifizierung
+		grMail.szSmtpUser = USER;
+		grMail.szSmtpPass = PASS;
+		// Absender
+		grMail.szSenderAddress = SENDER;
+		grMail.szSenderName = SENDERNAME;
+		grMail.szReplyAddress = SENDER;
+		// Mailer
+		grMail.szMailerName = MAILERNAME;
+		// Inhalt und Betreff
+		grMail.szSubject = SUBJECT;
+		// Anhang
+		if (ATTACHMENT_PATH)
+		{   // Pfad der Datei
+			MailLibVectorInit(&(grMail.AttachVec));
+			MailLibVectorAdd(&(grMail.AttachVec), ATTACHMENT_PATH);
+		}
+		
+		for (byte i = 0; i < 4; i++)
+		{
+			grMail.szSmtpServerPort = ports[i];
+			for (byte j = 0; j < 4; j++)
+			{
+				grMail.iSmtpSecurityType = securityTypes[j];
+				ss << "DLL-Test: Test-Email on Port: " << ports[i] << " (" << securityTypeTexts[j] << ")";
+				sContent = ss.str();
+				grMail.szContent = strdup(sContent.c_str());
+				std::cout << grMail.szContent << std::endl;
+				// Senden
+				bSuccess = SmtpSendMail(&grMail);
+				std::cout << "DLL-Test: " << (bSuccess ? "" : "nicht ") << "erfolgreich" << std::endl << std::endl;
+				bSuccess = false;
+				ss.str("");
+			}
+		}
+	}   
+
 
 /*****************************************************************************/
 /*                         Teile String in C-Vector                          */
 /*****************************************************************************/
     if (VEKTOR_TEST)
     {
+		std::cout << "DLL-Test: Vektor Tests (StringToVector, MailLibVectorInit)" << std::endl;
 	    char *TestString = TEXT("c.onsuela@fz-juelich.de, m.holtkoetter@fz-juelich.de; markus.holtkoetter@dialup.fh - aachen.de, abc@example.com");
 	    char *TestDelimiter = TEXT(";,");
 
@@ -263,7 +348,7 @@ int _tmain(int argc, _TCHAR *argv[])
 /*****************************************************************************/
 /*                                   Ende                                    */
 /*****************************************************************************/
-    std::cout << std::endl << "DLL-Test: Fertig, bitte Taste druecken... " << std::endl;
+    std::cout << "DLL-Test: Fertig, bitte Taste druecken... " << std::endl;
     getchar();
 
     return 0;

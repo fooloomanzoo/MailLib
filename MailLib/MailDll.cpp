@@ -93,18 +93,20 @@ MAIL_DLL_EXPORT BOOL SmtpSendMail(MailType *m)
 	BOOL NoErrorHasOccurred = TRUE;
 	try
 	{
-		int i;
+		
 		// Verbindungseinstellungen
-		if (!m->szSmtpServerPort)
-		{ /* Benutze Standard-Ports,
+		int i;
+		 /* Benutze Standard-Ports,
 		  wenn Port nicht gesetzt */
+		if (!m->szSmtpServerPort)
+		{
 			switch (m->iSmtpSecurityType)
 			{
 			case USE_TLS: /*TLS*/
 				m->szSmtpServerPort = 587;
 				break;
 			case USE_SSL: /*SSL*/
-				m->szSmtpServerPort = 587;
+				m->szSmtpServerPort = 465;
 				break;
 			default: /*NO_SECURITY & DO_NOT_SET*/
 				m->szSmtpServerPort = 25;

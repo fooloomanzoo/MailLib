@@ -22,7 +22,6 @@
 #pragma comment(lib, "libcrypto32MT.lib")    // wenn OpenSSL v1.0.2: ssleay32.lib
 #endif
 
-
 Command_Entry command_list[] =
 {
 	{command_INIT,          0,       5 * 60,  220, ECSmtp::SERVER_NOT_RESPONDING},
@@ -2095,7 +2094,7 @@ void CSmtp::GetWSALastErrorMsg() {
 		NULL, err,
 		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
 		(LPWSTR)&s, 0, NULL);
-	fprintf(stderr, "WSA %d: %S\n", err, s);
+	fprintf(stderr, "Error in WinSocket, WSA %d: %S\n", err, s);
 	LocalFree(s);
 }
 
