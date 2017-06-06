@@ -42,7 +42,7 @@
     <IntDir>$(TEMP)\$(ProjectName)\$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
+    <LinkIncremental>true</LinkIncremental>
     <IntDir>$(TEMP)\$(ProjectName)\$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -107,6 +107,9 @@
       <AdditionalLibraryDirectories>OpenSSL/lib/VC</AdditionalLibraryDirectories>
       <LinkTimeCodeGeneration>
       </LinkTimeCodeGeneration>
+      <RegisterOutput>false</RegisterOutput>
+      <TargetMachine>MachineX86</TargetMachine>
+      <Profile>false</Profile>
     </Link>
     <ResourceCompile>
       <Culture>0x0407</Culture>
@@ -117,6 +120,9 @@
     <ManifestResourceCompile>
       <ResourceOutputFileName>$(TEMP)\$(ProjectName)\$(Configuration)\$(TargetName)$(TargetExt).embed.manifest.res</ResourceOutputFileName>
     </ManifestResourceCompile>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="MailDll.cpp" />
